@@ -6,6 +6,10 @@
     font-weight: bold;
 }
 
+body {
+    background-color: rgb(197, 246, 230);
+}
+
 .title {
     margin: 30px auto;
     font-style: italic;
