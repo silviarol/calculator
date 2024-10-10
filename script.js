@@ -1,28 +1,24 @@
-function add(numOne, numTwo) {
-    return numOne + numTwo;
+const add = function(n1, n2) {
+    return n1 + n2;
 }
 
-function subtract(numOne, numTwo) {
-    return numOne - numTwo;
+const subtract = function(n1, n2) {
+    return n1 - n2;
 }
 
-function multiply(numOne, numTwo) {
-    return numOne * numTwo;
+const multiply = function(n1, n2) {
+    return n1 * n2;
 }
 
-function divide(numOne, numTwo) {
-    return numOne / numTwo;
+const divide = function(n1, n2) {
+    return n1 / n2;
 }
 
 const display = document.querySelector(".display");
-const one = document.querySelector(".one");
-const two = document.querySelector(".two");
+const number = document.querySelector(".number");
+const oper = document.querySelector(".operand");
 
 function operate(a, b, fn){
     return fn(a, b);
 }
 
-let displayValue = display.innerHTML;
-
-let result = operate(1, 2, add);
-display.innerHTML = result;
