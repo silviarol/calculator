@@ -27,10 +27,17 @@
     height: 90px;
     width: 370px;
     margin: 0px auto 20px;
+    padding-right: 30px;
     border-radius: 10px;
     background-color: rgb(213, 213, 213);
     border: groove black 3px;
     align-self: center;
+    text-align: end;
+    line-height: 90px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+
 }
 
 button {
