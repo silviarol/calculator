@@ -14,44 +14,10 @@ const minus = document.querySelector(".minus");
 const divide = document.querySelector(".divide");
 const multiply = document.querySelector(".multiply");
 const equals = document.querySelector(".equals");
-const cancel = document.querySelector(".cancel");
+const clear = document.querySelector(".clear");
 
-one.addEventListener("click", () => {
-    display.innerHTML = "1";
-});
 
-two.addEventListener("click", () => {
-    display.innerHTML = "2";
-});
 
-three.addEventListener("click", () => {
-    display.innerHTML = "3";
-});
 
-four.addEventListener("click", () => {
-    display.innerHTML = "4";
-});
 
-five.addEventListener("click", () => {
-    display.innerHTML = "5";
-});
 
-six.addEventListener("click", () => {
-    display.innerHTML = "6";
-});
-
-seven.addEventListener("click", () => {
-    display.innerHTML = "7";
-});
-
-eight.addEventListener("click", () => {
-    display.innerHTML = "8";
-});
-
-nine.addEventListener("click", () => {
-    display.innerHTML = "9";
-});
-
-zero.addEventListener("click", () => {
-    display.innerHTML = "0";
-});
