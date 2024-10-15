@@ -36,13 +36,6 @@ btn.forEach((button) => button.addEventListener("click", () => {
         display.innerHTML = "ERROR";
     }
 
-    checkOperator();
-
-    equal(n1, n2);
-})); 
-
-function checkOperator() {
-    
     if (str.indexOf('+') > -1) {
         operator = "+";
     } else if (str.indexOf('-') > -1) {
@@ -52,7 +45,9 @@ function checkOperator() {
     } else if (str.indexOf('÷') > -1) {
         operator = "÷";
     }
-}
+
+    equal(n1, n2);
+})); 
 
 function equal(n1, n2) {
     equals.addEventListener("click", () => {
