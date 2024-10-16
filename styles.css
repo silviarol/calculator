@@ -12,7 +12,6 @@ body {
 }
 
 .calc {
-
     background-color: rgb(54, 50, 50);
     height: 560px;
     width: 420px;
@@ -23,7 +22,6 @@ body {
 }
 
 .display {
-
     height: 90px;
     width: 370px;
     margin: 0px auto 20px;
@@ -37,11 +35,9 @@ body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 50px;
     font-weight: normal;
-
 }
 
 button {
-
     height: 70px;
     width: 80px;
     margin: 4px auto;
@@ -52,10 +48,8 @@ button {
 }
 
 button:hover {
-
     color: rgb(141, 156, 103);
 }
-
 
 .clear {
     height: 70px;
