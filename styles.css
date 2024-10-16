@@ -7,21 +7,17 @@
 }
 
 body {
-    background-color: rgb(197, 246, 230);
+    background-image: url("office-desktop-with-notebook.jpg");
+    background-size: 2280px 1516px;
 }
-
-.title {
-    margin: 30px auto;
-    font-style: italic;
-} 
 
 .calc {
 
     background-color: rgb(54, 50, 50);
-    height: 490px;
+    height: 560px;
     width: 420px;
     border-radius: 20px;
-    margin: auto;
+    margin: 100px auto;
     padding: 35px 0px 10px;
     border: groove black 3px;
 }
@@ -33,7 +29,7 @@ body {
     margin: 0px auto 20px;
     padding-right: 30px;
     border-radius: 10px;
-    background-color: rgb(213, 213, 213);
+    background-color: rgb(141, 156, 103);
     border: groove black 3px;
     align-self: center;
     text-align: end;
@@ -51,10 +47,23 @@ button {
     margin: 4px auto;
     border-radius: 30px;
     padding: 0px;
-    background-color: rgb(176, 95, 188);
+    background-color: rgb(7, 4, 8);
+    color: white;
 }
 
 button:hover {
 
-    color: white;
+    color: rgb(141, 156, 103);
+}
+
+
+.clear {
+    height: 70px;
+    width: 177px; 
+    background-color: rgb(33, 31, 35);
+}
+
+.delete {
+    height: 70px;
+    width: 177px; 
 }

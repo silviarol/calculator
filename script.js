@@ -1,77 +1,59 @@
-let operator = null;
-let num = [];
+let operator = "";
 let n1 = "";
 let n2 = "";
-let displayed = "";
-let str;
+const regex = /^(-?\d*\.?\d+)([+\-×÷])(-?\d*\.?\d*)$/;
 
-const display = document.querySelector(".display");
-const oper = document.querySelectorAll(".operator");
+const btn = document.querySelectorAll(".number, .operator, .point");
 const clear = document.querySelector(".clear");
-const number = document.querySelectorAll(".number");
+const deleter = document.querySelector(".delete");
+const display = document.querySelector(".display");
 const equals = document.querySelector(".equals");
-const btn = document.querySelectorAll(".button");
 
 btn.forEach((button) => button.addEventListener("click", () => {
         
     display.textContent += button.innerHTML;
 
-    displayed = display.innerHTML;
+    let displayed = display.innerHTML;
 
     let str = displayed;
 
-    if (str.length == 3 && (str.charAt(1) == "+" || str.charAt(1) == "×" || str.charAt(1) == "÷" || str.charAt(1) == "-")) {
-        n1 = str.charAt(0);
-        n2 = str.charAt(2);
-    } else if (str.length == 4 && (str.charAt(2) == "+" || str.charAt(2) == "×" || str.charAt(2) == "÷" || str.charAt(2) == "-")) {
-        n1 = str.charAt(0) + str.charAt(1);
-        n2 = str.charAt(3);
-    } else if (str.length == 4 && (str.charAt(1) == "+" || str.charAt(1) == "×" || str.charAt(1) == "÷" || str.charAt(1) == "-")) {
-        n1 = str.charAt(0);
-        n2 = str.charAt(2) + str.charAt(3);
-    } else if (str.length == 5 && (str.charAt(2) == "+" || str.charAt(2) == "×" || str.charAt(2) == "÷" || str.charAt(2) == "-")) {
-        n1 = str.charAt(0) + str.charAt(1);
-        n2 = str.charAt(3) + str.charAt(4);
-    } else if (str.length > 5) {
-        display.innerHTML = "ERROR";
+    if (regex.test(str) == true) {
+        const parts = str.match(regex);
+        n1 = parts[1];
+        operator = parts[2];
+        n2 = parts[3] || "";
+    } else if (str.length > 7) {
+        display.innerHTML = "ERROR!!";
     }
-
-    if (str.indexOf('+') > -1) {
-        operator = "+";
-    } else if (str.indexOf('-') > -1) {
-        operator = "-";
-    } else if (str.indexOf('×') > -1) {
-        operator = "×";
-    } else if (str.indexOf('÷') > -1) {
-        operator = "÷";
-    }
-
-    equal(n1, n2);
 })); 
 
-function equal(n1, n2) {
-    equals.addEventListener("click", () => {
-        display.innerHTML = operate(n1, n2, operator);
-    });
-}
+equals.addEventListener("click", () => {
+    if (n1 == "" && operator == "") {
+        display.innerHTML = "ERROR!!";
+    } else if (n1 != "" && operator == "") {
+        display.innerHTML = "ERROR!!";
+    } else {
+        const result = operate(n1, n2, operator);
+        display.innerHTML = parseFloat(Math.round(result * 1000) / 1000);
+    }
+});
 
 function operate(n1, n2, operator) {
-    if (operator === "+") {
-        a = Number(n1);
-        b = Number(n2);
-        return a + b;
-    } else if (operator === "-") {
-        a = Number(n1);
-        b = Number(n2);
-        return a - b;
-    } else if (operator === "×") {
-        a = Number(n1);
-        b = Number(n2);
-        return a * b;
-    } else if (operator === "÷") {
-        a = Number(n1);
-        b = Number(n2);
-        return a / b;
+    
+    const a = parseFloat(n1);
+    const b = parseFloat(n2);
+
+    switch (operator) {
+        case "+":
+            return a + b;
+        case "-":
+            return a - b;
+        case "×":
+            return a * b;
+        case "÷":
+            return b === 0 ? "ERROR!!" : a / b;
+        default:
+            return "ERROR!!";
     }
 }
 
@@ -83,4 +65,10 @@ function clearDisplay() {
     display.innerText = "";
     n1 = "";
     n2 = "";
+    operator = "";
 }
+
+deleter.addEventListener('click', () => {
+    const currentDisplay = display.innerHTML;
+    display.innerHTML = currentDisplay.slice(0, -1);
+});
