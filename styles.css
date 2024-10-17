@@ -19,6 +19,7 @@ body {
     margin: 100px auto;
     padding: 35px 0px 10px;
     border: groove black 3px;
+    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.689);
 }
 
 .display {
@@ -60,5 +61,5 @@ button:hover {
 
 .delete {
     height: 70px;
-    width: 177px; 
+    width: 80px; 
 }
