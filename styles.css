@@ -49,6 +49,7 @@ button {
 
 button:hover {
     color: rgb(141, 156, 103);
+    background-color: rgb(16, 16, 16);
 }
 
 .clear {
