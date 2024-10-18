@@ -1,42 +1,59 @@
 let operator = "";
 let n1 = "";
 let n2 = "";
-const regex = /^(-?\d*\.?\d+)([+\-×÷])(-?\d*\.?\d*)$/;
+let operands = ["", ""];
+let operators = [""];
+operands.length = 2;
+operators.length = 1;
+const fixedArray = operands.length;
+const fixedArrayTwo = operators.length;
+let result = "";
+let array = [];
+const displayMaxLength = 7;
 
 const btn = document.querySelectorAll(".number, .operator, .point");
+const decimal = document.querySelector(".point");
+const negative = document.querySelector(".negative");
 const clear = document.querySelector(".clear");
 const deleter = document.querySelector(".delete");
 const display = document.querySelector(".display");
 const equals = document.querySelector(".equals");
+const numberBtn = document.querySelectorAll(".number");
+const operatorBtn = document.querySelectorAll(".operator");
 
-btn.forEach((button) => button.addEventListener("click", () => {
-        
-    display.textContent += button.innerHTML;
-
-    let displayed = display.innerHTML;
-
-    let str = displayed;
-
-    if (regex.test(str) == true) {
-        const parts = str.match(regex);
-        n1 = parts[1];
-        operator = parts[2];
-        n2 = parts[3] || "";
-    } else if (str.length > 7) {
-        display.innerHTML = "ERROR!!";
+numberBtn.forEach((button) => button.addEventListener("click", (event) => {    
+    
+    display.textContent += event.target.innerHTML;
+    
+    if (operator != "") {   
+        display.textContent = "";
+        display.textContent += event.target.innerHTML;
+        array.push(display.textContent);
+        let secondNumber = array.join("");
+        display.textContent = secondNumber;
     }
+
 })); 
 
-equals.addEventListener("click", () => {
+operatorBtn.forEach((button) => button.addEventListener("click", (event) => {
+        
     if (n1 == "" && operator == "") {
-        display.innerHTML = "ERROR!!";
-    } else if (n1 != "" && operator == "") {
-        display.innerHTML = "ERROR!!";
-    } else {
-        const result = operate(n1, n2, operator);
-        display.innerHTML = parseFloat(Math.round(result * 1000) / 1000);
+        n1 = display.textContent;
+        operator = event.target.innerHTML;
+        operands[0] = n1;
+        operators[0] = operator;
+    } else if (n1 != "" && operator != "") {   
+        n2 = display.textContent;
+        operands[1] = n2;
+        operators[0] = "";
+        operator = event.target.innerHTML;
+        operators[0] = operator;
     }
-});
+
+    console.log(operands);
+    console.log(operators);
+
+})); 
 
 function operate(n1, n2, operator) {
     
@@ -57,6 +74,28 @@ function operate(n1, n2, operator) {
     }
 }
 
+equals.addEventListener("click", () => {
+    if (n1 == "" && operator == "") {
+        display.innerHTML = "ERROR!!";
+    } else if (n1 != "" && operator == "") {
+        display.innerHTML = "ERROR!!";
+    } else {
+        n2 = display.textContent;
+        result = operate(n1, n2, operator);
+        display.innerHTML = result;
+        display.innerHTML = Math.round(result * 100) / 100;
+        n1 = result;
+        operands[0] = n1;
+        operators[0] = "";
+        array = [];
+        operands[1] = "";
+    }
+});
+
+decimal.addEventListener("click", () => {
+    display.textContent += ".";
+});
+
 clear.addEventListener("click", () => {
     clearDisplay();
 });
@@ -66,6 +105,10 @@ function clearDisplay() {
     n1 = "";
     n2 = "";
     operator = "";
+    operands[0] = "";
+    operands[1] = "";
+    operators[0] = "";
+    array = [];
 }
 
 deleter.addEventListener('click', () => {
