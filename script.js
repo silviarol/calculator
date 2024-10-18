@@ -7,7 +7,6 @@ let result = "";
 let array = [];
 const displayMaxLength = 7;
 
-const negative = document.querySelector(".negative");
 const display = document.querySelector(".display");
 
 document.querySelectorAll(".number, .point").forEach((button) => button.addEventListener("click", (event) => {    
@@ -45,18 +44,15 @@ document.querySelectorAll(".operator").forEach((button) => button.addEventListen
         n2 = display.textContent;
         operands[1] = n2;
         result = operate(n1, n2, operator); 
-        display.innerHTML = Math.round(result * 100) / 100; 
+        display.textContent = Math.round(result * 100) / 100; 
         n1 = result;
         operands[0] = n1;
-        operators[0] = "";
-        operator = operators[1];
+        clearOperatorAndn2()
         operators[0] = event.target.innerHTML;
         operator = operators[0];
-        operands[1] = "";
-        n2 = "" ;
-        array = [];
     }
-
+    
+    console.log(operands)
 })); 
 
 function operate(n1, n2, operator) {
@@ -80,20 +76,19 @@ function operate(n1, n2, operator) {
 
 document.querySelector(".equals").addEventListener("click", () => {
     if (n1 == "" && operator == "") {
-        display.innerHTML = "ERROR!!";
+        display.textContent = "ERROR!!";
     } else if (n1 == "" && operator != "") {
-        display.innerHTML = "ERROR!!";
+        display.textContent = "ERROR!!";
     } else if (n1 != "" && operator != "") {
         n2 = display.textContent;
         operands[1] = n2;
         result = operate(n1, n2, operator);
-        display.innerHTML = Math.round(result * 100) / 100;
+        display.textContent = Math.round(result * 100) / 100;
         n1 = result;
         operands[0] = "";
-        operands[1] = "";
-        n2 = "";
-        operator = "";
-        array = [];
+        clearOperatorAndn2()
+    } else if (n2 == "") {
+        display.textContent = "ERROR!!";
     }
 
 });
@@ -103,28 +98,54 @@ document.querySelector(".clear").addEventListener("click", () => {
 });
 
 function clearMemory() {
-    display.innerText = "";
+    display.textContent = "";
     n1 = "";
+    operands[0] = "";
+    clearOperatorAndn2()
+}
+
+function clearOperatorAndn2() {
     n2 = "";
     operator = "";
-    operands[0] = "";
     operands[1] = "";
     operators[0] = "";
     array = [];
 }
 
 document.querySelector(".delete").addEventListener('click', () => {
-    const currentDisplay = display.innerHTML;
-    result = operate(n1, n2, operator);
 
-    if (result != "") {
-        display.innerHTML = currentDisplay.slice(0, -1);
-        n1 = currentDisplay.slice(0, -1);
-        if (n1 == "") {
-            clearMemory();
-        }  
-        operands[0] = n1; 
+
+    if (operator == "") {
+        const currentDisplay = display.textContent.slice(0, -1);
+        display.textContent = currentDisplay;
+
+        operands[0] = "";
+
+        if (display.textContent == "") {
+            n1 = 0;
+            display.textContent = "";
+        } else {
+            n1 = display.textContent;
+        }
+
+        operands[0] = n1;
     } else {
-        display.innerHTML = currentDisplay.slice(0, -1);
+        const currentDisplay = display.textContent.slice(0, -1);
+        display.textContent = currentDisplay;
+
+        operands[1] = "";
+
+        if (display.textContent == "") {
+            n2 = 0;
+            display.textContent = "";
+        } else {
+            n2 = display.textContent;
+        }
+
+        operands[1] = n2;
     }
+});
+
+document.querySelector(".negative").addEventListener('click', () => {
+    display.textContent *= -1;
 });
