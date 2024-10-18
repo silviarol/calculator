@@ -21,8 +21,8 @@ document.querySelectorAll(".number, .point").forEach((button) => button.addEvent
         display.textContent = "";
         display.textContent += event.target.innerHTML;
         arraySecondNumber.push(display.textContent);
-        let secondNumber = arraySecondNumber.join("").replace(/\.+/g, '.'); 
-        display.textContent = secondNumber;
+        n2 = arraySecondNumber.join("").replace(/\.+/g, '.'); 
+        display.textContent = n2;
     } else if (points.length > 1) {
         display.textContent = display.textContent.replace(/\.+/g, '.'); 
     }
