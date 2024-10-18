@@ -48,10 +48,13 @@ operatorBtn.forEach((button) => button.addEventListener("click", (event) => {
         operators[0] = "";
         operator = event.target.innerHTML;
         operators[0] = operator;
+    } else if (n1 == result) {   
+        n2 = display.textContent;
+        operands[1] = n2;
+        operators[0] = "";
+        operator = event.target.innerHTML;
+        operators[0] = operator;
     }
-
-    console.log(operands);
-    console.log(operators);
 
 })); 
 
@@ -90,6 +93,7 @@ equals.addEventListener("click", () => {
         array = [];
         operands[1] = "";
     }
+
 });
 
 decimal.addEventListener("click", () => {
@@ -113,5 +117,13 @@ function clearDisplay() {
 
 deleter.addEventListener('click', () => {
     const currentDisplay = display.innerHTML;
-    display.innerHTML = currentDisplay.slice(0, -1);
+    result = operate(n1, n2, operator);
+
+    if (result != "") {
+        display.innerHTML = currentDisplay.slice(0, -1);
+        n1 = currentDisplay.slice(0, -1);  
+        operands[0] = n1; 
+    } else {
+        display.innerHTML = currentDisplay.slice(0, -1);
+    }
 });
