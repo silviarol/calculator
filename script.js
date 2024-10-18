@@ -1,6 +1,6 @@
 let operator = "";
-let n1 = "";
-let n2 = "";
+let firstOperand = "";
+let secondOperand = "";
 let operands = ["", ""];
 let operators = [""];
 let result = "";
@@ -15,14 +15,14 @@ document.querySelectorAll(".number, .point").forEach((button) => button.addEvent
     let displayed = display.textContent.split("");
     let points = displayed.filter((element) => element == ".");
     
-    if (n1 != "") {   
-        // Resets display when n2 is inputted
-        // Allows n2 to be bigger than 1 digit
+    if (firstOperand != "") {   
+        // Resets display when secondOperand is inputted
+        // Allows secondOperand to be bigger than 1 digit
         display.textContent = "";
         display.textContent += event.target.innerHTML;
         arraySecondNumber.push(display.textContent);
-        n2 = arraySecondNumber.join("").replace(/\.+/g, '.'); 
-        display.textContent = n2;
+        secondOperand = arraySecondNumber.join("").replace(/\.+/g, '.'); 
+        display.textContent = secondOperand;
     } else if (points.length > 1) {
         display.textContent = display.textContent.replace(/\.+/g, '.'); 
     }
@@ -36,36 +36,36 @@ document.querySelectorAll(".number, .point").forEach((button) => button.addEvent
 
 document.querySelectorAll(".operator").forEach((button) => button.addEventListener("click", (event) => {
       
-    if (n1 == "") {
-        n1 = display.textContent;
-        operands[0] = n1;
+    if (firstOperand == "") {
+        firstOperand = display.textContent;
+        operands[0] = firstOperand;
         operator = event.target.innerHTML;
         operators[0] = operator;
-    } else if (n1 != "" && operator =="") {   
+    } else if (firstOperand != "" && operator =="") {   
         operator = event.target.innerHTML;
         operators[0] = operator;
-    } else if (n1 != "" && operator !="") {   
-        n2 = display.textContent;
-        operands[1] = n2;
-        result = operate(n1, n2, operator); 
+    } else if (firstOperand != "" && operator !="") {   
+        secondOperand = display.textContent;
+        operands[1] = secondOperand;
+        result = operate(firstOperand, secondOperand, operator); 
 
         if (result == "NO / BY 0" || result == "ERROR 404") {
             display.textContent = result;
         } else {
             display.textContent = Math.round(result * 100) / 100; 
-            n1 = display.textContent;
-            operands[0] = n1;
-            clearOperatorAndn2()
+            firstOperand = display.textContent;
+            operands[0] = firstOperand;
+            clearOperatorAndsecondOperand()
             operators[0] = event.target.innerHTML;
             operator = operators[0];
         }
     } 
 })); 
 
-function operate(n1, n2, operator) {
+function operate(firstOperand, secondOperand, operator) {
     
-    const a = parseFloat(n1);
-    const b = parseFloat(n2);
+    const a = parseFloat(firstOperand);
+    const b = parseFloat(secondOperand);
 
     switch (operator) {
         case "+":
@@ -82,22 +82,22 @@ function operate(n1, n2, operator) {
 }
 
 document.querySelector(".equals").addEventListener("click", () => {
-    if (n1 == "" && operator == "") {
+    if (firstOperand == "" && operator == "") {
         display.textContent = "ERROR 404";
-    } else if (n1 == "" && operator != "") {
+    } else if (firstOperand == "" && operator != "") {
         display.textContent = "ERROR 404";
-    } else if (n1 != "" && operator != "") {
-        n2 = display.textContent;
-        operands[1] = n2;
-        result = operate(n1, n2, operator);
+    } else if (firstOperand != "" && operator != "") {
+        secondOperand = display.textContent;
+        operands[1] = secondOperand;
+        result = operate(firstOperand, secondOperand, operator);
 
         if (result == "NO / BY 0" || result == "ERROR 404") {
             display.textContent = result;
         } else {
             display.textContent = Math.round(result * 100) / 100; 
-            n1 = display.textContent;
-            operands[0] = n1;
-            clearOperatorAndn2();
+            firstOperand = display.textContent;
+            operands[0] = firstOperand;
+            clearOperatorAndsecondOperand();
         }
     }  
 });
@@ -108,13 +108,13 @@ document.querySelector(".clear").addEventListener("click", () => {
 
 function clearMemory() {
     display.textContent = "";
-    n1 = "";
+    firstOperand = "";
     operands[0] = "";
-    clearOperatorAndn2()
+    clearOperatorAndsecondOperand()
 }
 
-function clearOperatorAndn2() {
-    n2 = "";
+function clearOperatorAndsecondOperand() {
+    secondOperand = "";
     operator = "";
     operands[1] = "";
     operators[0] = "";
@@ -130,13 +130,13 @@ document.querySelector(".delete").addEventListener('click', () => {
         operands[0] = "";
 
         if (display.textContent == "") {
-            n1 = 0;
+            firstOperand = 0;
             display.textContent = "";
         } else {
-            n1 = display.textContent;
+            firstOperand = display.textContent;
         }
 
-        operands[0] = n1;
+        operands[0] = firstOperand;
 
     } else {
         const currentDisplay = display.textContent.slice(0, -1);
@@ -145,13 +145,13 @@ document.querySelector(".delete").addEventListener('click', () => {
         operands[1] = "";
 
         if (display.textContent == "") {
-            n2 = 0;
+            secondOperand = 0;
             display.textContent = "";
         } else {
-            n2 = display.textContent;
+            secondOperand = display.textContent;
         }
 
-        operands[1] = n2;
+        operands[1] = secondOperand;
     }
 });
 
