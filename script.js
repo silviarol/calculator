@@ -21,6 +21,7 @@ document.querySelectorAll(".number, .point").forEach((button) => button.addEvent
     if (resultDisplayed == true && operator == "") {
         clearMemory();
         display.textContent += event.target.innerHTML;
+        checkDecimals();
         return;
     }
     
