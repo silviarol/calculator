@@ -9,6 +9,7 @@
 body {
     background-image: url("office-desktop-with-notebook.jpg");
     background-size: 2280px 1516px;
+    background-position: fixed;
 }
 
 .calc {
