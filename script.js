@@ -1,52 +1,69 @@
-let operator = "";
 let firstOperand = "";
 let secondOperand = "";
-let operands = ["", ""];
-let operators = [""];
+let operator = "";
 let result = "";
-let arraySecondNumber = [];
 const displayMaxLength = 8;
+let resultDisplayed = false;
 
 const display = document.querySelector(".display");
 
 document.querySelectorAll(".number, .point").forEach((button) => button.addEventListener("click", (event) => {    
     
-    display.textContent += event.target.innerHTML;
-    let displayed = display.textContent.split("");
-    let points = displayed.filter((element) => element == ".");
-    
-    if (firstOperand != "") {   
-        // Resets display when secondOperand is inputted
-        // Allows secondOperand to be bigger than 1 digit
-        display.textContent = "";
-        display.textContent += event.target.innerHTML;
-        arraySecondNumber.push(display.textContent);
-        secondOperand = arraySecondNumber.join("").replace(/\.+/g, '.'); 
-        display.textContent = secondOperand;
-    } else if (points.length > 1) {
-        display.textContent = display.textContent.replace(/\.+/g, '.'); 
+    if (display.textContent == "NO / BY 0" || display.textContent == "ERROR 404" 
+        || display.textContent == "OVERFLOW") {
+        clearMemory();
     }
+
+    if (resultDisplayed == true && operator == "") {   
+        firstOperand = event.target.innerHTML;
+        display.textContent = firstOperand;
+        secondOperand = "";
+        operator = "";
+        result = "";
+        resultDisplayed = false;
+        return;
+    }
+    
+    if (firstOperand != "" && operator != "") {   
+        secondOperand += event.target.innerHTML;
+        display.textContent = secondOperand;
+        resultDisplayed = false;
+    } else {
+        display.textContent += event.target.innerHTML;
+        resultDisplayed = false;
+    }
+    
+
+    checkDecimals();
 
     if (display.textContent.length > displayMaxLength) {
         display.textContent = "OVERFLOW";
-    } else if (display.textContent == "NO / BY 0" || display.textContent == "ERROR 404") {
-
     }
+
+    console.log(firstOperand);
+    console.log(secondOperand);
 })); 
+
+function checkDecimals() {
+    let displayed = display.textContent.split("");
+    let points = displayed.filter((element) => element == ".");
+
+    if (points.length > 1) {
+        display.textContent = display.textContent.replace(/\.+/g, '.'); 
+    } 
+}
 
 document.querySelectorAll(".operator").forEach((button) => button.addEventListener("click", (event) => {
       
     if (firstOperand == "") {
         firstOperand = display.textContent;
-        operands[0] = firstOperand;
         operator = event.target.innerHTML;
-        operators[0] = operator;
-    } else if (firstOperand != "" && operator =="") {   
+        resultDisplayed = false;
+    } else if (firstOperand != "" && operator == "") {   
         operator = event.target.innerHTML;
-        operators[0] = operator;
+        resultDisplayed = false;
     } else if (firstOperand != "" && operator !="") {   
         secondOperand = display.textContent;
-        operands[1] = secondOperand;
         result = operate(firstOperand, secondOperand, operator); 
 
         if (result == "NO / BY 0" || result == "ERROR 404") {
@@ -54,11 +71,13 @@ document.querySelectorAll(".operator").forEach((button) => button.addEventListen
         } else {
             display.textContent = Math.round(result * 100) / 100; 
             firstOperand = display.textContent;
-            operands[0] = firstOperand;
-            clearOperatorAndsecondOperand()
-            operators[0] = event.target.innerHTML;
-            operator = operators[0];
+            secondOperand = "";
+            operator = "";
+            result = "";
+            resultDisplayed = true;
         }
+
+        operator = event.target.innerHTML;
     } 
 })); 
 
@@ -88,7 +107,6 @@ document.querySelector(".equals").addEventListener("click", () => {
         display.textContent = "ERROR 404";
     } else if (firstOperand != "" && operator != "") {
         secondOperand = display.textContent;
-        operands[1] = secondOperand;
         result = operate(firstOperand, secondOperand, operator);
 
         if (result == "NO / BY 0" || result == "ERROR 404") {
@@ -96,8 +114,10 @@ document.querySelector(".equals").addEventListener("click", () => {
         } else {
             display.textContent = Math.round(result * 100) / 100; 
             firstOperand = display.textContent;
-            operands[0] = firstOperand;
-            clearOperatorAndsecondOperand();
+            secondOperand = "";
+            operator = "";
+            result = "";
+            resultDisplayed = true;
         }
     }  
 });
@@ -109,16 +129,10 @@ document.querySelector(".clear").addEventListener("click", () => {
 function clearMemory() {
     display.textContent = "";
     firstOperand = "";
-    operands[0] = "";
-    clearOperatorAndsecondOperand()
-}
-
-function clearOperatorAndsecondOperand() {
     secondOperand = "";
     operator = "";
-    operands[1] = "";
-    operators[0] = "";
-    arraySecondNumber = [];
+    result = "";
+    resultDisplayed = false;
 }
 
 document.querySelector(".delete").addEventListener('click', () => {
@@ -127,7 +141,7 @@ document.querySelector(".delete").addEventListener('click', () => {
         const currentDisplay = display.textContent.slice(0, -1);
         display.textContent = currentDisplay;
 
-        operands[0] = "";
+        firstOperand = "";
 
         if (display.textContent == "") {
             firstOperand = 0;
@@ -135,14 +149,11 @@ document.querySelector(".delete").addEventListener('click', () => {
         } else {
             firstOperand = display.textContent;
         }
-
-        operands[0] = firstOperand;
-
     } else {
         const currentDisplay = display.textContent.slice(0, -1);
         display.textContent = currentDisplay;
 
-        operands[1] = "";
+        secondOperand = "";
 
         if (display.textContent == "") {
             secondOperand = 0;
@@ -150,8 +161,6 @@ document.querySelector(".delete").addEventListener('click', () => {
         } else {
             secondOperand = display.textContent;
         }
-
-        operands[1] = secondOperand;
     }
 });
 
@@ -163,5 +172,4 @@ document.querySelector(".negative").addEventListener('click', () => {
     } else {
         display.textContent *= -1;
     }
-
 });
