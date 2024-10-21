@@ -4,6 +4,8 @@ let operator = "";
 let result = "";
 const displayMaxLength = 8;
 let resultDisplayed = false;
+let zero = 0;
+zero != "";
 
 const display = document.querySelector(".display");
 
@@ -16,13 +18,9 @@ document.querySelectorAll(".number, .point").forEach((button) => button.addEvent
         clearMemory();
     }
 
-    if (resultDisplayed == true && operator == "") {   
-        firstOperand = event.target.innerHTML;
-        display.textContent = firstOperand;
-        secondOperand = "";
-        operator = "";
-        result = "";
-        resultDisplayed = false;
+    if (resultDisplayed == true && operator == "") {
+        clearMemory();
+        display.textContent += event.target.innerHTML;
         return;
     }
     
@@ -165,12 +163,17 @@ document.querySelector(".delete").addEventListener('click', () => {
 
 document.querySelector(".negative").addEventListener('click', () => {
 
-    if (
-        display.textContent == "NO / BY 0" || 
+    if (display.textContent == "NO / BY 0" || 
         display.textContent == "ERROR 404" || 
         display.textContent == "OVERFLOW"
     ) {
         display.textContent == "ERROR 404"
+    } else if (operator == "") {
+        display.textContent *= -1;
+        firstOperand = display.textContent;
+    } else if (operator != "") {
+        display.textContent *= -1;
+        secondOperand = display.textContent;
     } else {
         display.textContent *= -1;
     }
