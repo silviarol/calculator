@@ -14,3 +14,7 @@ This Calculator App is a web-based project developed as part of the last project
 - **Dynamic Display**: The calculator display updates in real-time as users input numbers and operators.
 - **Clear Functionality**: Users can clear the entire input or delete the last character.
 - **Negative Number Toggle**: Supports toggling the sign of the displayed number.
+
+## Live demo
+
+Go to https://silviarol.github.io/calculator/.
