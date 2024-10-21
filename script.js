@@ -9,8 +9,10 @@ const display = document.querySelector(".display");
 
 document.querySelectorAll(".number, .point").forEach((button) => button.addEventListener("click", (event) => {    
     
-    if (display.textContent == "NO / BY 0" || display.textContent == "ERROR 404" 
-        || display.textContent == "OVERFLOW") {
+    if (display.textContent == "NO / BY 0" || 
+        display.textContent == "ERROR 404" || 
+        display.textContent == "OVERFLOW"
+    ) {
         clearMemory();
     }
 
@@ -32,7 +34,6 @@ document.querySelectorAll(".number, .point").forEach((button) => button.addEvent
         display.textContent += event.target.innerHTML;
         resultDisplayed = false;
     }
-    
 
     checkDecimals();
 
@@ -140,7 +141,6 @@ document.querySelector(".delete").addEventListener('click', () => {
     if (operator == "") {
         const currentDisplay = display.textContent.slice(0, -1);
         display.textContent = currentDisplay;
-
         firstOperand = "";
 
         if (display.textContent == "") {
@@ -152,7 +152,6 @@ document.querySelector(".delete").addEventListener('click', () => {
     } else {
         const currentDisplay = display.textContent.slice(0, -1);
         display.textContent = currentDisplay;
-
         secondOperand = "";
 
         if (display.textContent == "") {
@@ -166,8 +165,11 @@ document.querySelector(".delete").addEventListener('click', () => {
 
 document.querySelector(".negative").addEventListener('click', () => {
 
-    if (display.textContent == "NO / BY 0" || display.textContent == "ERROR 404" 
-        || display.textContent == "OVERFLOW") {
+    if (
+        display.textContent == "NO / BY 0" || 
+        display.textContent == "ERROR 404" || 
+        display.textContent == "OVERFLOW"
+    ) {
         display.textContent == "ERROR 404"
     } else {
         display.textContent *= -1;
